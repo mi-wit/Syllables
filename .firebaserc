@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "syllables-mi-wit": {
+      "hosting": {
+        "Syllables": [
+          "syllables-mi-wit"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "syllables-mi-wit"
+  }
+}
