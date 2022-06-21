@@ -1,40 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { hyphenate, hyphenateSync } from 'hyphen/pl';
+import { defer, from, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-text-editor',
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss']
 })
-export class TextEditorComponent implements OnInit {
+export class TextEditorComponent implements OnInit, OnDestroy {
 
-  text: string = 
-  `Lorem ipsum dolor sit amet,
-consectetur adipiscing elit.
-Donec quis elit eget mauris vehicula suscipit eget sit amet mi.
-Curabitur eu molestie elit.
-Vivamus condimentum efficitur interdum.
-Morbi eu odio mollis nisl ullamcorper dapibus eu eu odio.
-Suspendisse est ante, varius eu lorem a, feugiat rhoncus nisi.
-Duis hendrerit maximus enim eu venenatis.
-Donec a ex fringilla, vehicula libero vitae, lobortis ipsum.
-Curabitur ut luctus orci, nec porttitor tellus.
-Quisque ac laoreet quam. 
-Ut maximus interdum velit vulputate consectetur t maximus interdum velit vulputate consectetur.
+  plText: string = `Warta Zawiercie klub piłkarski
+z Zawiercia założony w 1921 roku
+z inicjatywy Seweryna Gębarskiego 
+oraz Władysława Millera po tym,
+jak w Zawierciu Anglicy rozpropagowali piłkę nożną.
+Rozgrywki ligowe zespół rozpoczął w 1922 roku w klasie C,
+w 1927 roku awansował do klasy B, a dwa lata później do klasy A.
+W latach 1930 oraz 1932 Warta Zawiercie zdobywała mistrzostwo okręgu kieleckiego klasy A, uzyskując prawo do gry w barażach o Ligę.
+W obu sezonach klub odpadał w pierwszej rundzie baraży,
+zajmując ostatnie miejsce w tabeli.
+W trakcie II wojny światowej zespół zawiesił działalność,
+a po wojnie został reaktywowany z inicjatywy przedwojennego zawodnika klubu,
+Mariana Merty. W latach 70. i 80.
+Warta Zawiercie grała na czwartym i piątym poziomie rozgrywek.
+W 1980`
+  enText: string = `This is a text hyphenation library, based on Franklin M. Liang's hyphenation algorithm. In core of the algorithm lies a set of hyphenation patterns. They are extracted from hand-hyphenated dictionaries. Patterns for this library were taken from ctan.org and ported to Javascript.`;
+  lines: string[] = [];
+  numberOfSyllables: number[] = [];
 
-Suspendisse mi purus, porta a tellus in, mollis sollicitudin quam. 
-Sed euismod dolor non ex cursus, vitae gravida nulla lacinia. 
-Nunc tempor magna a libero malesuada euismod. 
-Duis iaculis malesuada consequat. 
-Sed feugiat ante felis, eget sodales erat facilisis quis. 
-Etiam lacus orci, aliquet vel ligula at, mattis ornare libero. 
-Sed luctus dolor convallis consectetur finibus. 
-Donec ac pretium enim, ut sollicitudin augue. 
-Phasellus a diam eget elit lacinia rutrum sit amet non mauris. 
-Aenean vel ex efficitur, scelerisque tellus eu, facilisis ante. 
-  `;
+  text = new FormControl(this.plText);
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor() { }
 
   ngOnInit(): void {
+
+    this.calculateSyllables(this.text.value);
+    
+    this.text.valueChanges
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
+      (value: string) => this.calculateSyllables(value)
+    );
+
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  private calculateSyllables(text: string): void {
+    this.numberOfSyllables = [];
+    this.lines = text.split(/\r?\n/);
+    
+    this.lines.forEach(
+      line => {
+        if (line.trim().length > 1) {
+          this.numberOfSyllables.push(hyphenateSync(line, {hyphenChar: "-"}).split(/-| /).length);
+          console.log(hyphenateSync(line, {hyphenChar: "-"}).split(/-| /));
+        } else {
+          this.numberOfSyllables.push(0);
+        }
+      }
+    );
+  }
 }

@@ -1,9 +1,20 @@
-<div class="flex">
+<div class="felx h-96 overflow-scroll">
+    <mat-drawer-container>
+        <mat-drawer mode="side" opened>
+            <div class="py-1 pr-3 leading-loose">
+                <ng-container *ngFor="let line of lines; index as i">
+                    <div>{{numberOfSyllables[i]}}</div>
+                </ng-container>
+            </div>
+        </mat-drawer>
+        <mat-drawer-content>
 
-    <textarea 
-    class="pl-1 py-1 pr-6 w-full h-96 overflow-scroll whitespace-pre leading-loose"
-    [value]="text"
-    >
-
-</textarea>
+            <textarea 
+            class="pl-1 py-1 pr-6 w-full h-screen whitespace-pre leading-loose"
+            [value]="plText"
+            [formControl]="text"
+            >
+        </textarea>
+        </mat-drawer-content>
+    </mat-drawer-container>
 </div>
