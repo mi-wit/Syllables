@@ -2,7 +2,15 @@
   <div class="text-5xl mb-6 p-6 bg-blue-100">Syllables</div>
   <div class="md:grid md:grid-cols-3 gap-4">
     <mat-card class="col-start-2 col-span-1 m-6  h-full">
-      <app-text-editor></app-text-editor>
+      <mat-card-content>
+        <app-text-editor></app-text-editor>
+      </mat-card-content>
+      <mat-card-actions>
+        <section class="py-2">
+          <mat-slide-toggle [formControl]="spellcheck" class="pr-3"></mat-slide-toggle>
+          <mat-label>Sprawdzanie pisowni</mat-label>
+        </section>
+      </mat-card-actions>
     </mat-card>
 
   </div>

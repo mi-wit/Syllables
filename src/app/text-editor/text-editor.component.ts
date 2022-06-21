@@ -25,11 +25,16 @@ a po wojnie został reaktywowany z inicjatywy przedwojennego zawodnika klubu,
 Mariana Merty. W latach 70. i 80.
 Warta Zawiercie grała na czwartym i piątym poziomie rozgrywek.
 W 1980`
-  enText: string = `This is a text hyphenation library, based on Franklin M. Liang's hyphenation algorithm. In core of the algorithm lies a set of hyphenation patterns. They are extracted from hand-hyphenated dictionaries. Patterns for this library were taken from ctan.org and ported to Javascript.`;
+  enText: string = `This is a text hyphenation library,
+based on Franklin M. Liang's hyphenation algorithm.
+In core of the algorithm lies a set of hyphenation patterns.
+They are extracted from hand-hyphenated dictionaries.
+Patterns for this library were taken from ctan.org and ported to Javascript.`;
   lines: string[] = [];
   numberOfSyllables: number[] = [];
 
   text = new FormControl(this.plText);
+  spellcheck: boolean = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor() { }
 
