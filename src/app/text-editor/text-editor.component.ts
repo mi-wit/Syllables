@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { hyphenate, hyphenateSync } from 'hyphen/pl';
-import { defer, from, Subject, takeUntil } from 'rxjs';
+import { hyphenateSync } from 'hyphen/pl';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-text-editor',
