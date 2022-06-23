@@ -1,16 +1,16 @@
-<div class="felx overflow-scroll">
+<div class="felx overflow-scroll ">
     <mat-drawer-container>
         <mat-drawer class="overflow-hidden" mode="side" opened>
             <div class="py-1 pr-3 leading-loose h-full">
                 <ng-container *ngFor="let line of lines; index as i">
-                    <div>{{numberOfSyllables[i]}}</div>
+                    <div class="text-gray-600 font-mono font-extrabold">{{numberOfSyllables[i]}}</div>
                 </ng-container>
             </div>
         </mat-drawer>
         <mat-drawer-content>
 
             <textarea 
-            class="pl-1 pt-1 pr-6 w-full whitespace-pre leading-loose resize-none "
+            class="pl-3 pt-1 pr-6 w-full whitespace-pre leading-loose resize-none"
             
             [formControl]="text"
             [spellcheck]="spellcheck"
