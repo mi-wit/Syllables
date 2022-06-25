@@ -12,11 +12,21 @@ export class AppComponent implements OnInit {
   title = 'Syllables';
   
   spellcheck = new FormControl(false);
+  english = new FormControl(false);
 
   ngOnInit(): void {
     this.spellcheck.valueChanges.subscribe(
       {
         next: (value) => this.editor.spellcheck = value
+      }
+    );
+
+    this.english.valueChanges.subscribe(
+      {
+        next: (value) => {
+          this.editor.language = value;
+          this.editor.rerenderText();
+        }
       }
     );
   }
