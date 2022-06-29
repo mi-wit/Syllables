@@ -3,7 +3,10 @@
         <mat-drawer class="overflow-hidden" mode="side" opened>
             <div class="py-1 pr-3 leading-loose h-full">
                 <ng-container *ngFor="let line of lines; index as i">
-                    <div class="text-gray-600 font-mono font-extrabold">{{numberOfSyllables[i]}}</div>
+                    <div class="text-gray-600 font-mono font-extrabold">
+                        <ng-container *ngIf="numberOfSyllables[i] !== 0">{{numberOfSyllables[i]}}</ng-container>
+                        <ng-container *ngIf="numberOfSyllables[i] === 0"><div class="text-gray-300">-</div></ng-container>
+                    </div>
                 </ng-container>
             </div>
         </mat-drawer>

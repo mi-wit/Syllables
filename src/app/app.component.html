@@ -8,13 +8,13 @@
         <app-text-editor></app-text-editor>
       </mat-card-content>
       <mat-card-actions>
-        <section class="py-2 flex items-center">
-          <mat-slide-toggle [formControl]="spellcheck" class="pr-3"></mat-slide-toggle>
-          <mat-label class="text-gray-500">Spell check</mat-label>
-        </section>
         <section>
           <mat-slide-toggle [formControl]="english" class="pr-3"></mat-slide-toggle>
           <mat-label class="text-gray-500">English (default: Polish)</mat-label>
+        </section>
+        <section class="py-2 flex items-center">
+          <mat-slide-toggle [formControl]="spellcheck" class="pr-3"></mat-slide-toggle>
+          <mat-label class="text-gray-500">Spell check</mat-label>
         </section>
       </mat-card-actions>
     </mat-card>
